@@ -58,9 +58,6 @@ Railway.app
 
 Your own server (Gunicorn + Nginx)
 
-License
-This project is open for educational and personal use. Feel free to fork and modify.
-
 Contact
 Created by Boma Halliday
 Email: boma913@gmail.com
