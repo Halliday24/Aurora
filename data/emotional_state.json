@@ -1,0 +1,200 @@
+{
+  "127.0.0.1": [
+    {
+      "timestamp": "2025-05-07T22:07:29.250755",
+      "brain_state": {
+        "dopamine": 0.5,
+        "serotonin": 0.5,
+        "cortisol": 0.27,
+        "cognitive_load": 0.001,
+        "energy_level": 0.7798
+      },
+      "mood": "neutral",
+      "mood_level": 2.4546564,
+      "sentiment_analysis": {
+        "compound": 0.0,
+        "positive": 0.0,
+        "negative": 0.0,
+        "neutral": 1.0,
+        "emotions": {
+          "joy": 0.0,
+          "sadness": 0.0,
+          "anger": 0.0,
+          "fear": 0.0,
+          "surprise": 0.0,
+          "gratitude": 0.0,
+          "confusion": 0.0
+        },
+        "primary_emotion": "neutral"
+      }
+    },
+    {
+      "timestamp": "2025-05-07T22:08:10.932954",
+      "brain_state": {
+        "dopamine": 0.5,
+        "serotonin": 0.5,
+        "cortisol": 0.24000000000000002,
+        "cognitive_load": 0.001,
+        "energy_level": 0.7596
+      },
+      "mood": "neutral",
+      "mood_level": 2.5670648000000003,
+      "sentiment_analysis": {
+        "compound": 0.0,
+        "positive": 0.0,
+        "negative": 0.0,
+        "neutral": 1.0,
+        "emotions": {
+          "joy": 0.0,
+          "sadness": 0.0,
+          "anger": 0.0,
+          "fear": 0.0,
+          "surprise": 0.0,
+          "gratitude": 0.0,
+          "confusion": 0.0
+        },
+        "primary_emotion": "neutral"
+      }
+    },
+    {
+      "timestamp": "2025-05-07T22:12:40.345695",
+      "brain_state": {
+        "dopamine": 0.5,
+        "serotonin": 0.5,
+        "cortisol": 0.27,
+        "cognitive_load": 0.001,
+        "energy_level": 0.7798
+      },
+      "mood": "neutral",
+      "mood_level": 2.4546564,
+      "sentiment_analysis": {
+        "compound": 0.0,
+        "positive": 0.0,
+        "negative": 0.0,
+        "neutral": 1.0,
+        "emotions": {
+          "joy": 0.0,
+          "sadness": 0.0,
+          "anger": 0.0,
+          "fear": 0.0,
+          "surprise": 0.0,
+          "gratitude": 0.0,
+          "confusion": 0.0
+        },
+        "primary_emotion": "neutral"
+      }
+    },
+    {
+      "timestamp": "2025-05-07T22:13:11.056704",
+      "brain_state": {
+        "dopamine": 0.5,
+        "serotonin": 0.5,
+        "cortisol": 0.24000000000000002,
+        "cognitive_load": 0.004,
+        "energy_level": 0.759
+      },
+      "mood": "neutral",
+      "mood_level": 2.5582879999999997,
+      "sentiment_analysis": {
+        "compound": 0.0,
+        "positive": 0.0,
+        "negative": 0.0,
+        "neutral": 1.0,
+        "emotions": {
+          "joy": 0.0,
+          "sadness": 0.0,
+          "anger": 0.0,
+          "fear": 0.0,
+          "surprise": 0.0,
+          "gratitude": 0.0,
+          "confusion": 0.0
+        },
+        "primary_emotion": "neutral"
+      }
+    },
+    {
+      "timestamp": "2025-05-07T22:13:50.014334",
+      "brain_state": {
+        "dopamine": 0.5,
+        "serotonin": 0.5,
+        "cortisol": 0.21000000000000002,
+        "cognitive_load": 0.006,
+        "energy_level": 0.7378
+      },
+      "mood": "neutral",
+      "mood_level": 2.6587943999999997,
+      "sentiment_analysis": {
+        "compound": 0.0,
+        "positive": 0.0,
+        "negative": 0.0,
+        "neutral": 1.0,
+        "emotions": {
+          "joy": 0.0,
+          "sadness": 0.0,
+          "anger": 0.0,
+          "fear": 0.0,
+          "surprise": 0.0,
+          "gratitude": 0.0,
+          "confusion": 0.0
+        },
+        "primary_emotion": "neutral"
+      }
+    },
+    {
+      "timestamp": "2025-05-07T22:15:15.157439",
+      "brain_state": {
+        "dopamine": 0.5,
+        "serotonin": 0.5,
+        "cortisol": 0.18000000000000002,
+        "cognitive_load": 0.006,
+        "energy_level": 0.7166
+      },
+      "mood": "neutral",
+      "mood_level": 2.7592488,
+      "sentiment_analysis": {
+        "compound": 0.0772,
+        "positive": 0.245,
+        "negative": 0.0,
+        "neutral": 0.755,
+        "emotions": {
+          "joy": 0.0,
+          "sadness": 0.0,
+          "anger": 0.0,
+          "fear": 0.0,
+          "surprise": 0.0,
+          "gratitude": 0.0,
+          "confusion": 0.0
+        },
+        "primary_emotion": "neutral"
+      }
+    },
+    {
+      "timestamp": "2025-05-07T22:35:06.340116",
+      "brain_state": {
+        "dopamine": 0.5,
+        "serotonin": 0.5,
+        "cortisol": 0.15000000000000002,
+        "cognitive_load": 0.003,
+        "energy_level": 0.6960000000000001
+      },
+      "mood": "neutral",
+      "mood_level": 2.8632240000000007,
+      "sentiment_analysis": {
+        "compound": 0.0,
+        "positive": 0.0,
+        "negative": 0.0,
+        "neutral": 1.0,
+        "emotions": {
+          "joy": 0.0,
+          "sadness": 0.0,
+          "anger": 0.0,
+          "fear": 0.0,
+          "surprise": 0.0,
+          "gratitude": 0.0,
+          "confusion": 0.0
+        },
+        "primary_emotion": "neutral"
+      }
+    }
+  ]
+}

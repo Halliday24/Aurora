@@ -1,0 +1,36 @@
+# Python cache files
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environment
+venv/
+env/
+*.env
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs and temporary files
+*.log
+*.tmp
+*.bak
+
+# Data files
+data/*.json
+!data/cognitive_biases.json
+!data/emotional_state.json
+!data/long_term_memory.json
+!data/self_reflection_log.json
+!data/short_term_memory.json
+
+# Static files
+static/*.css.map
+static/*.js.map
+
+# OS-specific files
+.DS_Store
+Thumbs.db

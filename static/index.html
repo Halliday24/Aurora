@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aurora - Your Career Coach</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs" defer></script>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+    .chat-bubble {
+      animation: fadeSlideIn 0.4s ease;
+    }
+    @keyframes fadeSlideIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .typing-indicator {
+      display: flex;
+      gap: 4px;
+      height: 20px;
+      align-items: center;
+      margin-left: 5px;
+    }
+    .typing-indicator span {
+      width: 6px;
+      height: 6px;
+      background: #a0aec0;
+      border-radius: 50%;
+      animation: bounce 1.2s infinite ease-in-out;
+    }
+    .typing-indicator span:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+    .typing-indicator span:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+    @keyframes bounce {
+      0%, 80%, 100% { transform: scale(0); }
+      40% { transform: scale(1); }
+    }
+    .mood-indicator {
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+    .mood-neutral {
+      background-color: #E5E7EB;
+      color: #4B5563;
+    }
+    .mood-hyped {
+      background-color: #DBEAFE;
+      color: #1E40AF;
+    }
+    .mood-burned-out {
+      background-color: #FEE2E2;
+      color: #B91C1C;
+    }
+    .user-message {
+      background-color: #F3F4F6;
+      color: #1F2937;
+      align-self: flex-end;
+      border-radius: 18px 18px 0 18px;
+    }
+    .aurora-message {
+      background-color: #DBEAFE;
+      color: #1E3A8A;
+      align-self: flex-start;
+      border-radius: 18px 18px 18px 0;
+    }
+    .dark .user-message {
+      background-color: #374151;
+      color: #F9FAFB;
+    }
+    .dark .aurora-message {
+      background-color: #1E40AF;
+      color: #EFF6FF;
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-purple-100 dark:from-gray-900 dark:to-gray-800 transition-colors duration-500">
+  <div class="max-w-2xl mx-auto min-h-screen flex flex-col py-4 px-4">
+    <!-- Header -->
+    <header class="flex items-center justify-between mb-4 p-3 bg-white dark:bg-gray-800 rounded-xl shadow-sm">
+      <div class="flex items-center space-x-3">
+        <div class="w-12 h-12 rounded-full bg-purple-600 flex items-center justify-center text-white text-xl font-bold">
+          A
+        </div>
+        <div>
+          <h1 class="text-xl font-bold text-gray-800 dark:text-white">Aurora</h1>
+          <div class="flex items-center">
+            <p class="text-sm text-gray-500 dark:text-gray-400">Career Coach</p>
+            <span class="mx-2 text-gray-300 dark:text-gray-600">•</span>
+            <p class="text-sm text-gray-500 dark:text-gray-400">Usually responds in seconds</p>
+          </div>
+        </div>
+      </div>
+      <div class="flex items-center space-x-2">
+        <span id="moodIndicator" class="mood-indicator mood-neutral">neutral mood</span>
+        <button x-data x-on:click="document.documentElement.classList.toggle('dark')" class="text-xl text-gray-600 dark:text-gray-200">
+          <span x-text="document.documentElement.classList.contains('dark') ? '🌞' : '🌜'"></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Chatbox -->
+    <div id="chatBox" class="flex-1 bg-white dark:bg-gray-700 rounded-xl shadow-lg p-4 overflow-y-auto space-y-4 mb-4 border border-gray-200 dark:border-gray-600 flex flex-col">
+      <!-- Initial message -->
+      <div class="chat-bubble aurora-message p-3 max-w-[80%]">
+        <p>Hey there! I'm Aurora ✨ Your friendly neighborhood career coach who's probably had WAY too much coffee today. What can I help you with? Career questions? Resume tips? Life advice? (Though fair warning, I'm still figuring out the whole "adulting" thing myself 😂)</p>
+      </div>
+      <!-- Messages will appear here -->
+    </div>
+
+    <!-- Typing Indicator -->
+    <div id="typing" class="hidden ml-4 mb-2">
+      <div class="typing-indicator">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+
+    <!-- Input -->
+    <div class="flex items-center bg-white dark:bg-gray-800 rounded-xl shadow-sm p-2">
+      <input type="text" id="userInput" placeholder="Message Aurora..." class="flex-1 px-4 py-2 text-gray-700 dark:text-white bg-transparent focus:outline-none" />
+      <button onclick="sendMessage()" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">Send</button>
+    </div>
+  </div>
+
+  <script>
+    const chatBox = document.getElementById('chatBox');
+    const userInput = document.getElementById('userInput');
+    const typingIndicator = document.getElementById('typing');
+    const moodIndicator = document.getElementById('moodIndicator');
+    let history = [];
+
+    function appendMessage(sender, text, isUser = false) {
+      const msgDiv = document.createElement('div');
+      msgDiv.className = `chat-bubble p-3 max-w-[80%] ${isUser ? 'user-message self-end' : 'aurora-message'}`;
+      msgDiv.innerHTML = text;
+      chatBox.appendChild(msgDiv);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    function updateMoodIndicator(mood) {
+      moodIndicator.className = `mood-indicator mood-${mood}`;
+      moodIndicator.textContent = `${mood} mood`;
+    }
+
+    async function sendMessage() {
+      const message = userInput.value.trim();
+      if (!message) return;
+      
+      appendMessage("You", message, true);
+      userInput.value = "";
+      typingIndicator.classList.remove("hidden");
+
+      try {
+        // Using the enhanced v3 endpoint
+        const response = await fetch("/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message, history })
+        });
+
+        const data = await response.json();
+        
+        if (data.error) {
+          appendMessage("Aurora", `<p>Oops! Something went wrong: ${data.error}</p>`);
+          return;
+        }
+
+        // Simulate thinking time
+        await new Promise(resolve => setTimeout(resolve, data.thinking_time * 1000));
+        typingIndicator.classList.add("hidden");
+        
+        // Simulate typing time
+        const reply = data.reply || "Sorry, I'm having trouble responding right now.";
+        
+        // Update mood if provided
+        if (data.mood) {
+          updateMoodIndicator(data.mood);
+        }
+        
+        // Simulate typing
+        const typeDelay = Math.min(data.typing_time * 1000 || 1000, 3000);
+        setTimeout(() => {
+          appendMessage("Aurora", reply);
+          history.push({ user: message, assistant: reply });
+        }, typeDelay);
+        
+      } catch (error) {
+        typingIndicator.classList.add("hidden");
+        appendMessage("Aurora", `<p>Oops! I couldn't connect with my brain. Try again?</p>`);
+        console.error("Error:", error);
+      }
+    }
+
+    userInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") sendMessage();
+    });
+    
+    // Initialize mood
+    updateMoodIndicator("neutral");
+  </script>
+</body>
+</html>

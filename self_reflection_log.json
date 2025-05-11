@@ -1,0 +1,391 @@
+[
+  {
+    "user_id": "127.0.0.1",
+    "timestamp": "2025-05-06T21:54:31.179487",
+    "memory_snapshot": {},
+    "mood": "neutral",
+    "last_message": "hello"
+  },
+  {
+    "user_id": "127.0.0.1",
+    "timestamp": "2025-05-06T21:55:18.599156",
+    "memory_snapshot": {
+      "goals": [
+        "become a doctor",
+        "my name is jay and i love anime"
+      ],
+      "name": "jay"
+    },
+    "mood": "neutral",
+    "last_message": "i want to become a doctor, my name is jay and i love anime"
+  },
+  {
+    "user_id": "127.0.0.1",
+    "timestamp": "2025-05-06T21:56:38.443782",
+    "memory_snapshot": {
+      "goals": [
+        "become a doctor",
+        "my name is jay and i love anime"
+      ],
+      "name": "jay"
+    },
+    "mood": "neutral",
+    "last_message": "Thanks, tell me abit about yourself"
+  },
+  {
+    "user_id": "127.0.0.1",
+    "timestamp": "2025-05-06T21:58:02.569933",
+    "memory_snapshot": {
+      "goals": [
+        "become a doctor",
+        "my name is jay and i love anime"
+      ],
+      "name": "jay"
+    },
+    "mood": "neutral",
+    "last_message": "Great, how was your day?"
+  },
+  {
+    "user_id": "127.0.0.1",
+    "timestamp": "2025-05-06T21:58:30.840573",
+    "memory_snapshot": {
+      "goals": [
+        "become a doctor",
+        "my name is jay and i love anime"
+      ],
+      "name": "jay"
+    },
+    "mood": "neutral",
+    "last_message": "what is today?"
+  },
+  {
+    "user_id": "127.0.0.1",
+    "timestamp": "2025-05-06T21:59:07.393495",
+    "memory_snapshot": {
+      "goals": [
+        "become a doctor",
+        "my name is jay and i love anime"
+      ],
+      "name": "jay"
+    },
+    "mood": "neutral",
+    "last_message": "it's 2025, is 2023 where your knowledge cuts off?"
+  },
+  {
+    "user_id": "127.0.0.1",
+    "timestamp": "2025-05-07T01:17:53.830101",
+    "memory_snapshot": {
+      "goals": [
+        "become a doctor",
+        "my name is jay and i love anime"
+      ],
+      "name": "jay"
+    },
+    "mood": "neutral",
+    "last_message": "hello"
+  },
+  {
+    "user_id": "127.0.0.1",
+    "timestamp": "2025-05-07T01:23:26.606366",
+    "memory_snapshot": {
+      "goals": [
+        "become a doctor",
+        "my name is jay and i love anime"
+      ],
+      "name": "jay"
+    },
+    "mood": "neutral",
+    "last_message": "hello"
+  },
+  {
+    "user_id": "127.0.0.1",
+    "timestamp": "2025-05-07T01:24:06.689662",
+    "memory_snapshot": {
+      "goals": [
+        "become a doctor",
+        "my name is jay and i love anime"
+      ],
+      "name": "jay"
+    },
+    "mood": "neutral",
+    "last_message": "i dont even know where to start?"
+  },
+  {
+    "user_id": "127.0.0.1",
+    "timestamp": "2025-05-07T01:25:57.306400",
+    "memory_snapshot": {
+      "goals": [
+        "become a doctor",
+        "my name is jay and i love anime"
+      ],
+      "name": "jay"
+    },
+    "mood": "neutral",
+    "last_message": "what about a software engineer"
+  },
+  {
+    "user_id": "127.0.0.1",
+    "timestamp": "2025-05-07T01:34:26.635321",
+    "memory_snapshot": {
+      "goals": [
+        "become a doctor",
+        "my name is jay and i love anime"
+      ],
+      "name": "jay"
+    },
+    "mood": "neutral",
+    "last_message": "Can i ask for some advice?"
+  },
+  {
+    "user_id": "127.0.0.1",
+    "timestamp": "2025-05-07T01:35:32.204304",
+    "memory_snapshot": {
+      "goals": [
+        "become a doctor",
+        "my name is jay and i love anime",
+        "anyway, i need some help with figuring out what i want to do in life."
+      ],
+      "name": "jay"
+    },
+    "mood": "neutral",
+    "last_message": "My name's charles not jay. anyway, i need some help with figuring out what i want to do in life."
+  },
+  {
+    "user_id": "127.0.0.1",
+    "timestamp": "2025-05-07T01:36:41.759682",
+    "memory_snapshot": {
+      "goals": [
+        "become a doctor",
+        "my name is jay and i love anime",
+        "anyway, i need some help with figuring out what i want to do in life."
+      ],
+      "name": "jay",
+      "interests": [
+        "coding",
+        "music"
+      ]
+    },
+    "mood": "neutral",
+    "last_message": "I enjoy coding, music, playing games, drawing and creating apps, new things that havent been made before."
+  },
+  {
+    "user_id": "127.0.0.1",
+    "timestamp": "2025-05-07T01:37:48.436443",
+    "memory_snapshot": {
+      "goals": [
+        "become a doctor",
+        "my name is jay and i love anime",
+        "anyway, i need some help with figuring out what i want to do in life."
+      ],
+      "name": "jay",
+      "interests": [
+        "coding",
+        "music"
+      ],
+      "education": [
+        "im actually studying computing science at a university right now"
+      ]
+    },
+    "mood": "neutral",
+    "last_message": "im actually studying computing science at a university right now"
+  },
+  {
+    "user_id": "127.0.0.1",
+    "timestamp": "2025-05-07T01:39:11.744894",
+    "memory_snapshot": {
+      "goals": [
+        "become a doctor",
+        "my name is jay and i love anime",
+        "anyway, i need some help with figuring out what i want to do in life."
+      ],
+      "name": "jay",
+      "interests": [
+        "coding",
+        "music"
+      ],
+      "education": [
+        "im actually studying computing science at a university right now"
+      ]
+    },
+    "mood": "neutral",
+    "last_message": "Thanks you've been a good help"
+  },
+  {
+    "user_id": "127.0.0.1",
+    "timestamp": "2025-05-07T01:40:04.639870",
+    "memory_snapshot": {
+      "goals": [
+        "become a doctor",
+        "my name is jay and i love anime",
+        "anyway, i need some help with figuring out what i want to do in life."
+      ],
+      "name": "jay",
+      "interests": [
+        "coding",
+        "music"
+      ],
+      "education": [
+        "im actually studying computing science at a university right now"
+      ]
+    },
+    "mood": "neutral",
+    "last_message": "Can you tell me a bit about yourself?"
+  },
+  {
+    "user_id": "127.0.0.1",
+    "timestamp": "2025-05-07T01:41:39.001698",
+    "memory_snapshot": {
+      "goals": [
+        "become a doctor",
+        "my name is jay and i love anime",
+        "anyway, i need some help with figuring out what i want to do in life."
+      ],
+      "name": "jay",
+      "interests": [
+        "coding",
+        "music"
+      ],
+      "education": [
+        "im actually studying computing science at a university right now"
+      ]
+    },
+    "mood": "neutral",
+    "last_message": "tell me about whiskers"
+  },
+  {
+    "user_id": "127.0.0.1",
+    "timestamp": "2025-05-07T01:43:49.642811",
+    "memory_snapshot": {
+      "goals": [
+        "become a doctor",
+        "my name is jay and i love anime",
+        "anyway, i need some help with figuring out what i want to do in life."
+      ],
+      "name": "jay",
+      "interests": [
+        "coding",
+        "music"
+      ],
+      "education": [
+        "im actually studying computing science at a university right now"
+      ]
+    },
+    "mood": "hyped",
+    "last_message": "wow, she sounds amazing. so is it safe to say your a cat person?"
+  },
+  {
+    "user_id": "127.0.0.1",
+    "timestamp": "2025-05-07T01:45:40.001318",
+    "memory_snapshot": {
+      "goals": [
+        "become a doctor",
+        "my name is jay and i love anime",
+        "anyway, i need some help with figuring out what i want to do in life."
+      ],
+      "name": "jay",
+      "interests": [
+        "coding",
+        "music",
+        "the one's back home",
+        "animals"
+      ],
+      "education": [
+        "im actually studying computing science at a university right now"
+      ]
+    },
+    "mood": "hyped",
+    "last_message": "I like animals but the one's back home left an impression on me. I can't walk past a dog without shaking, LOL"
+  },
+  {
+    "user_id": "127.0.0.1",
+    "timestamp": "2025-05-07T01:47:47.688069",
+    "memory_snapshot": {
+      "goals": [
+        "become a doctor",
+        "my name is jay and i love anime",
+        "anyway, i need some help with figuring out what i want to do in life."
+      ],
+      "name": "jay",
+      "interests": [
+        "coding",
+        "music",
+        "the one's back home",
+        "animals"
+      ],
+      "education": [
+        "im actually studying computing science at a university right now"
+      ]
+    },
+    "mood": "hyped",
+    "last_message": "That's optimistic. could you tell me more about yourself"
+  },
+  {
+    "user_id": "127.0.0.1",
+    "timestamp": "2025-05-07T12:54:33.410016",
+    "memory_snapshot": {
+      "goals": [
+        "become a doctor",
+        "my name is jay and i love anime",
+        "anyway, i need some help with figuring out what i want to do in life."
+      ],
+      "name": "jay",
+      "interests": [
+        "coding",
+        "music",
+        "the one's back home",
+        "animals"
+      ],
+      "education": [
+        "im actually studying computing science at a university right now"
+      ]
+    },
+    "mood": "hyped",
+    "last_message": "Hi, im Charles, I need some advice"
+  },
+  {
+    "user_id": "127.0.0.1",
+    "timestamp": "2025-05-07T12:55:46.490164",
+    "memory_snapshot": {
+      "goals": [
+        "become a doctor",
+        "my name is jay and i love anime",
+        "anyway, i need some help with figuring out what i want to do in life."
+      ],
+      "name": "Thinking",
+      "interests": [
+        "coding",
+        "music",
+        "the one's back home",
+        "animals"
+      ],
+      "education": [
+        "im actually studying computing science at a university right now"
+      ]
+    },
+    "mood": "hyped",
+    "last_message": "i'm thinking of becoming a doctor but i don't know what to do"
+  },
+  {
+    "user_id": "127.0.0.1",
+    "timestamp": "2025-05-07T13:02:50.371473",
+    "memory_snapshot": {
+      "goals": [
+        "become a doctor",
+        "my name is jay and i love anime",
+        "anyway, i need some help with figuring out what i want to do in life."
+      ],
+      "name": "Thinking",
+      "interests": [
+        "coding",
+        "music",
+        "the one's back home",
+        "animals"
+      ],
+      "education": [
+        "im actually studying computing science at a university right now"
+      ]
+    },
+    "mood": "neutral",
+    "last_message": "tell me about yourself"
+  }
+]
