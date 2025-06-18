@@ -1,210 +1,777 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Aurora - Your Career Coach</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/alpinejs" defer></script>
-  <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-    }
-    .chat-bubble {
-      animation: fadeSlideIn 0.4s ease;
-    }
-    @keyframes fadeSlideIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .typing-indicator {
-      display: flex;
-      gap: 4px;
-      height: 20px;
-      align-items: center;
-      margin-left: 5px;
-    }
-    .typing-indicator span {
-      width: 6px;
-      height: 6px;
-      background: #a0aec0;
-      border-radius: 50%;
-      animation: bounce 1.2s infinite ease-in-out;
-    }
-    .typing-indicator span:nth-child(2) {
-      animation-delay: 0.2s;
-    }
-    .typing-indicator span:nth-child(3) {
-      animation-delay: 0.4s;
-    }
-    @keyframes bounce {
-      0%, 80%, 100% { transform: scale(0); }
-      40% { transform: scale(1); }
-    }
-    .mood-indicator {
-      padding: 2px 8px;
-      border-radius: 12px;
-      font-size: 12px;
-      font-weight: 500;
-    }
-    .mood-neutral {
-      background-color: #E5E7EB;
-      color: #4B5563;
-    }
-    .mood-hyped {
-      background-color: #DBEAFE;
-      color: #1E40AF;
-    }
-    .mood-burned-out {
-      background-color: #FEE2E2;
-      color: #B91C1C;
-    }
-    .user-message {
-      background-color: #F3F4F6;
-      color: #1F2937;
-      align-self: flex-end;
-      border-radius: 18px 18px 0 18px;
-    }
-    .aurora-message {
-      background-color: #DBEAFE;
-      color: #1E3A8A;
-      align-self: flex-start;
-      border-radius: 18px 18px 18px 0;
-    }
-    .dark .user-message {
-      background-color: #374151;
-      color: #F9FAFB;
-    }
-    .dark .aurora-message {
-      background-color: #1E40AF;
-      color: #EFF6FF;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aurora - AI Career Coach with Personality</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+        }
+        
+        /* Animated gradient background */
+        .aurora-bg {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(125deg, #0a0a0a 0%, #1a0f1f 25%, #0f1a1a 50%, #1f0f1a 75%, #0a0a0a 100%);
+            background-size: 400% 400%;
+            animation: aurora-shift 20s ease infinite;
+        }
+        
+        @keyframes aurora-shift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        /* Particle effect */
+        .particle {
+            position: fixed;
+            pointer-events: none;
+            opacity: 0;
+            animation: float-up 4s linear infinite;
+        }
+        
+        @keyframes float-up {
+            0% {
+                opacity: 0;
+                transform: translateY(100vh) scale(0);
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-100vh) scale(1.5);
+            }
+        }
+        
+        /* Glass morphism panels */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Neon glow effects */
+        .neon-glow {
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.5),
+                        0 0 40px rgba(139, 92, 246, 0.3),
+                        0 0 60px rgba(139, 92, 246, 0.1);
+        }
+        
+        /* Chat messages */
+        .message {
+            animation: message-appear 0.3s ease-out;
+            transform-origin: bottom;
+        }
+        
+        @keyframes message-appear {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        /* Typing indicator */
+        .typing-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: #8b5cf6;
+            border-radius: 50%;
+            margin: 0 2px;
+            animation: typing-bounce 1.4s infinite ease-in-out both;
+        }
+        
+        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+        
+        @keyframes typing-bounce {
+            0%, 80%, 100% {
+                transform: scale(0.8);
+                opacity: 0.5;
+            }
+            40% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        
+        /* Brain visualization */
+        .brain-metric {
+            transition: all 0.5s ease;
+        }
+        
+        .brain-metric-bar {
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .brain-metric-fill {
+            height: 100%;
+            border-radius: 2px;
+            transition: width 1s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .brain-metric-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            animation: shimmer 2s infinite;
+        }
+        
+        @keyframes shimmer {
+            100% { left: 100%; }
+        }
+        
+        /* Mood indicator animations */
+        .mood-indicator {
+            transition: all 0.5s ease;
+        }
+        
+        .mood-hyped {
+            animation: pulse-fast 1s infinite;
+            color: #fbbf24;
+        }
+        
+        .mood-burned-out {
+            animation: fade-slow 3s infinite;
+            color: #6b7280;
+        }
+        
+        .mood-anxious {
+            animation: shake-subtle 2s infinite;
+            color: #ef4444;
+        }
+        
+        @keyframes pulse-fast {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.9; }
+        }
+        
+        @keyframes fade-slow {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+        
+        @keyframes shake-subtle {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-2px); }
+            75% { transform: translateX(2px); }
+        }
+        
+        /* Coffee counter animation */
+        .coffee-steam {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 30px;
+            filter: blur(10px);
+            animation: steam-rise 3s infinite;
+        }
+        
+        @keyframes steam-rise {
+            0% {
+                opacity: 0;
+                transform: translateX(-50%) translateY(0) scaleY(0);
+            }
+            50% {
+                opacity: 0.5;
+            }
+            100% {
+                opacity: 0;
+                transform: translateX(-50%) translateY(-30px) scaleY(2);
+            }
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: rgba(139, 92, 246, 0.5);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(139, 92, 246, 0.7);
+        }
+        
+        /* Input field effects */
+        .aurora-input {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .aurora-input:focus {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(139, 92, 246, 0.5);
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .brain-panel {
+                display: none;
+            }
+        }
+    </style>
 </head>
-<body class="bg-gradient-to-br from-blue-50 to-purple-100 dark:from-gray-900 dark:to-gray-800 transition-colors duration-500">
-  <div class="max-w-2xl mx-auto min-h-screen flex flex-col py-4 px-4">
-    <!-- Header -->
-    <header class="flex items-center justify-between mb-4 p-3 bg-white dark:bg-gray-800 rounded-xl shadow-sm">
-      <div class="flex items-center space-x-3">
-        <div class="w-12 h-12 rounded-full bg-purple-600 flex items-center justify-center text-white text-xl font-bold">
-          A
-        </div>
-        <div>
-          <h1 class="text-xl font-bold text-gray-800 dark:text-white">Aurora</h1>
-          <div class="flex items-center">
-            <p class="text-sm text-gray-500 dark:text-gray-400">Career Coach</p>
-            <span class="mx-2 text-gray-300 dark:text-gray-600">•</span>
-            <p class="text-sm text-gray-500 dark:text-gray-400">Usually responds in seconds</p>
-          </div>
-        </div>
-      </div>
-      <div class="flex items-center space-x-2">
-        <span id="moodIndicator" class="mood-indicator mood-neutral">neutral mood</span>
-        <button x-data x-on:click="document.documentElement.classList.toggle('dark')" class="text-xl text-gray-600 dark:text-gray-200">
-          <span x-text="document.documentElement.classList.contains('dark') ? '🌞' : '🌜'"></span>
-        </button>
-      </div>
-    </header>
-
-    <!-- Chatbox -->
-    <div id="chatBox" class="flex-1 bg-white dark:bg-gray-700 rounded-xl shadow-lg p-4 overflow-y-auto space-y-4 mb-4 border border-gray-200 dark:border-gray-600 flex flex-col">
-      <!-- Initial message -->
-      <div class="chat-bubble aurora-message p-3 max-w-[80%]">
-        <p>Hey there! I'm Aurora ✨ Your friendly neighborhood career coach who's probably had WAY too much coffee today. What can I help you with? Career questions? Resume tips? Life advice? (Though fair warning, I'm still figuring out the whole "adulting" thing myself 😂)</p>
-      </div>
-      <!-- Messages will appear here -->
-    </div>
-
-    <!-- Typing Indicator -->
-    <div id="typing" class="hidden ml-4 mb-2">
-      <div class="typing-indicator">
-        <span></span><span></span><span></span>
-      </div>
-    </div>
-
-    <!-- Input -->
-    <div class="flex items-center bg-white dark:bg-gray-800 rounded-xl shadow-sm p-2">
-      <input type="text" id="userInput" placeholder="Message Aurora..." class="flex-1 px-4 py-2 text-gray-700 dark:text-white bg-transparent focus:outline-none" />
-      <button onclick="sendMessage()" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">Send</button>
-    </div>
-  </div>
-
-  <script>
-    const chatBox = document.getElementById('chatBox');
-    const userInput = document.getElementById('userInput');
-    const typingIndicator = document.getElementById('typing');
-    const moodIndicator = document.getElementById('moodIndicator');
-    let history = [];
-
-    function appendMessage(sender, text, isUser = false) {
-      const msgDiv = document.createElement('div');
-      msgDiv.className = `chat-bubble p-3 max-w-[80%] ${isUser ? 'user-message self-end' : 'aurora-message'}`;
-      msgDiv.innerHTML = text;
-      chatBox.appendChild(msgDiv);
-      chatBox.scrollTop = chatBox.scrollHeight;
-    }
-
-    function updateMoodIndicator(mood) {
-      moodIndicator.className = `mood-indicator mood-${mood}`;
-      moodIndicator.textContent = `${mood} mood`;
-    }
-
-    async function sendMessage() {
-      const message = userInput.value.trim();
-      if (!message) return;
-      
-      appendMessage("You", message, true);
-      userInput.value = "";
-      typingIndicator.classList.remove("hidden");
-
-      try {
-        // Using the enhanced v3 endpoint
-        const response = await fetch("/chat", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ message, history })
-        });
-
-        const data = await response.json();
-        
-        if (data.error) {
-          appendMessage("Aurora", `<p>Oops! Something went wrong: ${data.error}</p>`);
-          return;
-        }
-
-        // Simulate thinking time
-        await new Promise(resolve => setTimeout(resolve, data.thinking_time * 1000));
-        typingIndicator.classList.add("hidden");
-        
-        // Simulate typing time
-        const reply = data.reply || "Sorry, I'm having trouble responding right now.";
-        
-        // Update mood if provided
-        if (data.mood) {
-          updateMoodIndicator(data.mood);
-        }
-        
-        // Simulate typing
-        const typeDelay = Math.min(data.typing_time * 1000 || 1000, 3000);
-        setTimeout(() => {
-          appendMessage("Aurora", reply);
-          history.push({ user: message, assistant: reply });
-        }, typeDelay);
-        
-      } catch (error) {
-        typingIndicator.classList.add("hidden");
-        appendMessage("Aurora", `<p>Oops! I couldn't connect with my brain. Try again?</p>`);
-        console.error("Error:", error);
-      }
-    }
-
-    userInput.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") sendMessage();
-    });
+<body>
+    <div class="aurora-bg"></div>
     
-    // Initialize mood
-    updateMoodIndicator("neutral");
-  </script>
+    <!-- Particle container -->
+    <div id="particles"></div>
+    
+    <div class="relative z-10 h-screen flex">
+        <!-- Main Chat Area -->
+        <div class="flex-1 flex flex-col max-w-4xl mx-auto w-full">
+            <!-- Header -->
+            <header class="glass-panel m-4 p-4 flex items-center justify-between">
+                <div class="flex items-center gap-4">
+                    <div class="relative">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center font-bold text-xl">
+                            A
+                        </div>
+                        <div id="status-dot" class="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-black"></div>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-bold font-['Space_Grotesk']">Aurora</h1>
+                        <p class="text-sm text-gray-400 flex items-center gap-2">
+                            <span id="mood-indicator" class="mood-indicator">Feeling neutral</span>
+                            <span class="text-xs">•</span>
+                            <span id="coffee-count" class="text-xs flex items-center gap-1">
+                                <i class="fas fa-coffee"></i> 0
+                            </span>
+                        </p>
+                    </div>
+                </div>
+                
+                <button id="brain-toggle" class="md:hidden p-2 rounded-lg hover:bg-white/10 transition">
+                    <i class="fas fa-brain"></i>
+                </button>
+            </header>
+            
+            <!-- Chat Messages -->
+            <div id="chat-container" class="flex-1 overflow-y-auto px-4 pb-4 space-y-4">
+                <div class="message glass-panel p-4 max-w-md">
+                    <p class="text-sm text-purple-400 mb-1">Aurora</p>
+                    <p>Hey! I'm Aurora, your slightly caffeinated career coach. What's on your mind today? 🚀</p>
+                </div>
+            </div>
+            
+            <!-- Typing Indicator -->
+            <div id="typing-indicator" class="hidden px-4 pb-2">
+                <div class="glass-panel inline-flex items-center gap-2 px-4 py-2 rounded-full">
+                    <span class="text-sm text-gray-400">Aurora is typing</span>
+                    <div class="flex gap-1">
+                        <span class="typing-dot"></span>
+                        <span class="typing-dot"></span>
+                        <span class="typing-dot"></span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Input Area -->
+            <div class="p-4">
+                <form id="chat-form" class="glass-panel p-3 flex gap-3">
+                    <input
+                        type="text"
+                        id="message-input"
+                        class="aurora-input flex-1 px-4 py-3 rounded-xl outline-none text-white placeholder-gray-500"
+                        placeholder="Type your message..."
+                        autocomplete="off"
+                    />
+                    <button type="submit" class="px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl font-semibold hover:shadow-lg hover:scale-105 transition-all duration-200 neon-glow">
+                        Send
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Brain State Panel -->
+        <div id="brain-panel" class="hidden lg:block w-96 p-4 overflow-y-auto">
+            <div class="glass-panel p-6 space-y-6">
+                <h2 class="text-xl font-bold font-['Space_Grotesk'] flex items-center gap-2">
+                    <i class="fas fa-brain text-purple-400"></i>
+                    Brain State
+                </h2>
+                
+                <!-- Neurotransmitters -->
+                <div>
+                    <h3 class="text-sm font-semibold mb-3 text-gray-400">Neurotransmitters</h3>
+                    <div id="neurotransmitters" class="space-y-3"></div>
+                </div>
+                
+                <!-- Circadian Rhythm -->
+                <div>
+                    <h3 class="text-sm font-semibold mb-3 text-gray-400">Circadian Rhythm</h3>
+                    <canvas id="circadian-clock" width="150" height="150" class="mx-auto"></canvas>
+                    <div class="text-center mt-2 text-sm">
+                        <div>Phase: <span id="circadian-phase" class="font-mono">12:00</span></div>
+                        <div>Alertness: <span id="alertness-level" class="font-mono">75%</span></div>
+                    </div>
+                </div>
+                
+                <!-- Cognitive Resources -->
+                <div>
+                    <h3 class="text-sm font-semibold mb-3 text-gray-400">Cognitive State</h3>
+                    <div class="space-y-3">
+                        <div class="brain-metric">
+                            <div class="flex justify-between text-xs mb-1">
+                                <span>Energy</span>
+                                <span id="energy-value">80%</span>
+                            </div>
+                            <div class="brain-metric-bar">
+                                <div id="energy-bar" class="brain-metric-fill bg-gradient-to-r from-green-500 to-emerald-500" style="width: 80%"></div>
+                            </div>
+                        </div>
+                        <div class="brain-metric">
+                            <div class="flex justify-between text-xs mb-1">
+                                <span>Cognitive Load</span>
+                                <span id="cognitive-load-value">20%</span>
+                            </div>
+                            <div class="brain-metric-bar">
+                                <div id="cognitive-load-bar" class="brain-metric-fill bg-gradient-to-r from-yellow-500 to-orange-500" style="width: 20%"></div>
+                            </div>
+                        </div>
+                        <div class="brain-metric">
+                            <div class="flex justify-between text-xs mb-1">
+                                <span>Creativity</span>
+                                <span id="creativity-value">60%</span>
+                            </div>
+                            <div class="brain-metric-bar">
+                                <div id="creativity-bar" class="brain-metric-fill bg-gradient-to-r from-purple-500 to-pink-500" style="width: 60%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Personality Traits -->
+                <div>
+                    <h3 class="text-sm font-semibold mb-3 text-gray-400">Personality (Big Five)</h3>
+                    <canvas id="personality-radar" width="250" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Global state
+        let conversationHistory = [];
+        let currentMood = 'neutral';
+        let brainState = {
+            neurotransmitters: {
+                dopamine: 0.5,
+                serotonin: 0.5,
+                oxytocin: 0.3,
+                cortisol: 0.3,
+                norepinephrine: 0.4
+            },
+            cognitive: {
+                energy: 0.8,
+                load: 0.2,
+                creativity: 0.6
+            },
+            circadian: {
+                phase: 12,
+                alertness: 0.75
+            }
+        };
+        
+        // Particle system
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * window.innerWidth + 'px';
+            particle.style.width = particle.style.height = Math.random() * 4 + 2 + 'px';
+            particle.style.background = `rgba(139, 92, 246, ${Math.random() * 0.5 + 0.2})`;
+            particle.style.borderRadius = '50%';
+            particle.style.animationDuration = Math.random() * 3 + 4 + 's';
+            particle.style.animationDelay = Math.random() * 2 + 's';
+            
+            document.getElementById('particles').appendChild(particle);
+            
+            setTimeout(() => particle.remove(), 7000);
+        }
+        
+        // Create particles periodically
+        setInterval(createParticle, 300);
+        
+        // Initialize brain visualization
+        function initBrainVisualization() {
+            // Neurotransmitters
+            updateNeurotransmitters();
+            
+            // Circadian clock
+            updateCircadianClock();
+            
+            // Personality radar chart
+            initPersonalityRadar();
+        }
+        
+        // Update neurotransmitter display
+        function updateNeurotransmitters() {
+            const container = document.getElementById('neurotransmitters');
+            container.innerHTML = '';
+            
+            const colors = {
+                dopamine: 'from-red-500 to-pink-500',
+                serotonin: 'from-blue-500 to-cyan-500',
+                oxytocin: 'from-pink-500 to-rose-500',
+                cortisol: 'from-yellow-500 to-amber-500',
+                norepinephrine: 'from-purple-500 to-violet-500'
+            };
+            
+            Object.entries(brainState.neurotransmitters).forEach(([nt, value]) => {
+                const div = document.createElement('div');
+                div.className = 'brain-metric';
+                div.innerHTML = `
+                    <div class="flex justify-between text-xs mb-1">
+                        <span class="capitalize">${nt}</span>
+                        <span>${Math.round(value * 100)}%</span>
+                    </div>
+                    <div class="brain-metric-bar">
+                        <div class="brain-metric-fill bg-gradient-to-r ${colors[nt]}" style="width: ${value * 100}%"></div>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+        
+        // Update circadian clock
+        function updateCircadianClock() {
+            const canvas = document.getElementById('circadian-clock');
+            const ctx = canvas.getContext('2d');
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            const radius = 60;
+            
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Clock face
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+            
+            // Hour markers
+            for (let i = 0; i < 24; i += 6) {
+                const angle = (i / 24) * 2 * Math.PI - Math.PI / 2;
+                const x1 = centerX + Math.cos(angle) * (radius - 10);
+                const y1 = centerY + Math.sin(angle) * (radius - 10);
+                const x2 = centerX + Math.cos(angle) * radius;
+                const y2 = centerY + Math.sin(angle) * radius;
+                
+                ctx.beginPath();
+                ctx.moveTo(x1, y1);
+                ctx.lineTo(x2, y2);
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+            }
+            
+            // Current time hand
+            const angle = (brainState.circadian.phase / 24) * 2 * Math.PI - Math.PI / 2;
+            ctx.beginPath();
+            ctx.moveTo(centerX, centerY);
+            ctx.lineTo(
+                centerX + Math.cos(angle) * radius * 0.7,
+                centerY + Math.sin(angle) * radius * 0.7
+            );
+            ctx.strokeStyle = '#fbbf24';
+            ctx.lineWidth = 3;
+            ctx.stroke();
+            
+            // Update text
+            document.getElementById('circadian-phase').textContent = 
+                `${Math.floor(brainState.circadian.phase)}:${Math.round((brainState.circadian.phase % 1) * 60).toString().padStart(2, '0')}`;
+            document.getElementById('alertness-level').textContent = 
+                `${Math.round(brainState.circadian.alertness * 100)}%`;
+        }
+        
+        // Initialize personality radar chart
+        function initPersonalityRadar() {
+            const canvas = document.getElementById('personality-radar');
+            const ctx = canvas.getContext('2d');
+            
+            new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: ['Openness', 'Conscientiousness', 'Extraversion', 'Agreeableness', 'Neuroticism'],
+                    datasets: [{
+                        label: 'Aurora',
+                        data: [80, 60, 70, 85, 60],
+                        backgroundColor: 'rgba(139, 92, 246, 0.2)',
+                        borderColor: 'rgba(139, 92, 246, 1)',
+                        borderWidth: 2,
+                        pointBackgroundColor: 'rgba(139, 92, 246, 1)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgba(139, 92, 246, 1)'
+                    }]
+                },
+                options: {
+                    responsive: false,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: { color: 'rgba(255, 255, 255, 0.1)' },
+                            grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                            pointLabels: { color: 'rgba(255, 255, 255, 0.7)', font: { size: 10 } },
+                            ticks: { display: false },
+                            min: 0,
+                            max: 100
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
+            });
+        }
+        
+        // Update mood indicator
+        function updateMoodIndicator(mood, moodLevel) {
+            const indicator = document.getElementById('mood-indicator');
+            const statusDot = document.getElementById('status-dot');
+            
+            // Remove previous mood classes
+            indicator.className = 'mood-indicator';
+            
+            // Add new mood class
+            indicator.classList.add(`mood-${mood.toLowerCase().replace(' ', '-')}`);
+            
+            // Update text
+            const moodTexts = {
+                'hyped': 'Absolutely buzzing! ⚡',
+                'burned out': 'Running on fumes... 😴',
+                'anxious': 'Feeling a bit on edge 😰',
+                'content': 'In a good headspace 😊',
+                'overwhelmed': 'Brain at capacity! 🤯',
+                'neutral': 'Feeling balanced 😌'
+            };
+            
+            indicator.textContent = moodTexts[mood] || 'Feeling neutral';
+            
+            // Update status dot color
+            if (moodLevel > 2) {
+                statusDot.className = statusDot.className.replace(/bg-\w+-500/, 'bg-green-500');
+            } else if (moodLevel > -2) {
+                statusDot.className = statusDot.className.replace(/bg-\w+-500/, 'bg-yellow-500');
+            } else {
+                statusDot.className = statusDot.className.replace(/bg-\w+-500/, 'bg-red-500');
+            }
+        }
+        
+        // Add message to chat
+        function addMessage(content, isUser = false, isThinking = false) {
+            const chatContainer = document.getElementById('chat-container');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message glass-panel p-4 ${isUser ? 'ml-auto bg-purple-500/10' : ''} max-w-md`;
+            
+            if (isThinking) {
+                messageDiv.innerHTML = `
+                    <p class="text-sm text-gray-400 mb-1">Aurora is thinking...</p>
+                    <div class="flex gap-1">
+                        <span class="typing-dot"></span>
+                        <span class="typing-dot"></span>
+                        <span class="typing-dot"></span>
+                    </div>
+                `;
+            } else {
+                messageDiv.innerHTML = `
+                    <p class="text-sm ${isUser ? 'text-purple-400' : 'text-purple-400'} mb-1">
+                        ${isUser ? 'You' : 'Aurora'}
+                    </p>
+                    <p class="whitespace-pre-wrap">${content}</p>
+                `;
+            }
+            
+            chatContainer.appendChild(messageDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+            
+            return messageDiv;
+        }
+        
+        // Simulate typing effect
+        async function typeMessage(element, content, typingSpeed = 30) {
+            const p = element.querySelector('p:last-child');
+            p.textContent = '';
+            
+            for (let i = 0; i < content.length; i++) {
+                p.textContent += content[i];
+                await new Promise(resolve => setTimeout(resolve, typingSpeed));
+            }
+        }
+        
+        // Handle form submission
+        document.getElementById('chat-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const input = document.getElementById('message-input');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            // Add user message
+            addMessage(message, true);
+            conversationHistory.push({ user: message });
+            
+            // Clear input
+            input.value = '';
+            
+            // Show thinking indicator
+            const thinkingDiv = addMessage('', false, true);
+            
+            try {
+                // Send to backend
+                const response = await fetch('/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        message: message,
+                        history: conversationHistory.slice(-10)
+                    })
+                });
+                
+                const data = await response.json();
+                
+                // Remove thinking indicator
+                thinkingDiv.remove();
+                
+                // Update brain state
+                if (data.brain_state) {
+                    updateBrainState(data.brain_state);
+                }
+                
+                // Update mood
+                if (data.mood) {
+                    updateMoodIndicator(data.mood, data.mood_level || 0);
+                }
+                
+                // Update coffee count
+                if (data.brain_state && data.brain_state.coffee_count !== undefined) {
+                    document.getElementById('coffee-count').innerHTML = `
+                        <i class="fas fa-coffee"></i> ${data.brain_state.coffee_count}
+                    `;
+                }
+                
+                // Add Aurora's response with typing effect
+                const responseDiv = addMessage('', false);
+                
+                // Calculate typing speed based on mood
+                let typingSpeed = 30;
+                if (data.mood === 'hyped') typingSpeed = 20;
+                else if (data.mood === 'burned out') typingSpeed = 50;
+                
+                await new Promise(resolve => setTimeout(resolve, data.thinking_time * 1000 || 1000));
+                await typeMessage(responseDiv, data.reply, typingSpeed);
+                
+                conversationHistory.push({ assistant: data.reply });
+                
+            } catch (error) {
+                thinkingDiv.remove();
+                addMessage("Ugh, my brain just crashed. Can you try again?", false);
+            }
+        });
+        
+        // Update brain state visualization
+        function updateBrainState(state) {
+            if (state.neurotransmitters) {
+                brainState.neurotransmitters = state.neurotransmitters;
+                updateNeurotransmitters();
+            }
+            
+            if (state.energy_level !== undefined) {
+                brainState.cognitive.energy = state.energy_level;
+                document.getElementById('energy-value').textContent = `${Math.round(state.energy_level * 100)}%`;
+                document.getElementById('energy-bar').style.width = `${state.energy_level * 100}%`;
+            }
+            
+            if (state.cognitive_load !== undefined) {
+                brainState.cognitive.load = state.cognitive_load;
+                document.getElementById('cognitive-load-value').textContent = `${Math.round(state.cognitive_load * 100)}%`;
+                document.getElementById('cognitive-load-bar').style.width = `${state.cognitive_load * 100}%`;
+            }
+            
+            if (state.circadian) {
+                brainState.circadian = state.circadian;
+                updateCircadianClock();
+            }
+        }
+        
+        // Mobile brain panel toggle
+        document.getElementById('brain-toggle').addEventListener('click', () => {
+            const panel = document.getElementById('brain-panel');
+            panel.classList.toggle('hidden');
+            panel.classList.toggle('fixed');
+            panel.classList.toggle('inset-0');
+            panel.classList.toggle('z-50');
+            panel.classList.toggle('bg-black/80');
+        });
+        
+        // Auto-update brain state periodically
+        setInterval(async () => {
+            try {
+                const response = await fetch('/brain_state');
+                const data = await response.json();
+                updateBrainState(data);
+            } catch (error) {
+                console.error('Failed to fetch brain state:', error);
+            }
+        }, 10000); // Update every 10 seconds
+        
+        // Initialize on load
+        initBrainVisualization();
+        
+        // Add some personality to the page load
+        setTimeout(() => {
+            createParticle();
+            createParticle();
+            createParticle();
+        }, 100);
+    </script>
 </body>
 </html>
